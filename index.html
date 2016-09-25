@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>RuleJS - Like excel library to parse formulas.</title>
+
+  <script src="dist/full/ruleJS.all.full.js"></script>
+  <style>
+    .table input[type=text] {
+      width: 50px;
+    }
+
+	#suportedList ul {
+      -webkit-column-count: 4; -webkit-column-gap:20px;
+      -moz-column-count:4; -moz-column-gap:20px;
+      -o-column-count:4; -o-column-gap:20px;
+      column-count:4; column-gap:20px;
+    }
+  </style>
+</head>
+<body>
+  <div  style="padding: 0px;" id="demo1">
+	<h2>仿Excel公式</h2>
+	<section>
+      <p><b>静态：</b>在span标签上设置了data-formula="SUM(A1:C3,A1)"，ruleJS据此计算结果</p>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <td></td>
+          <td>A</td>
+          <td>B</td>
+		  <td>C</td>
+          <td colspan="2" class="text-center">求和</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td><input type="text" id="A1" value="1" ></td>
+          <td><input type="text" id="B1" value="2" ></td>
+		  <td><input type="text" id="C1" value="3" ></td>
+          <td><i>SUM(A1:C1)=</i><span id="K1" data-formula="SUM(A1:C1)" class="rj-formula"></span></td>
+        </tr>
+		<tr>
+          <td>2</td>
+          <td><input type="text" id="A2" value="4"></td>
+          <td><input type="text" id="B2" value="5"></td>
+		  <td><input type="text" id="C2" value="6"></td>
+          <td><i>SUM(A1:C3)=</i><span id="K1" data-formula="SUM(A1:C3)" class="rj-formula"></span></td>
+        </tr>
+		<tr>
+          <td>3</td>
+          <td><input type="text" id="A3" value="7" ></td>
+          <td><input type="text" id="B3" value="8" ></td>
+		  <td><input type="text" id="C3" value="9" ></td>
+          <td><i>SUM(A1:C3,A1)=</i><span id="K1" data-formula="SUM(A1:C3,A1)" class="rj-formula"></span></td>
+        </tr>
+        </tbody>
+      </table>
+	</section>
+    <iframe src="index - 924.html" frameborder="0" width="100%" height="250px" scrolling="no"></iframe>
+	<section id="suportedList">
+		<p><b>支持公式：</b></p> 
+	</section>
+  </div>
+
+<script>
+	(function () {
+		// ruleJS初始化
+		var rules = new ruleJS('demo1');
+		rules.init();
+
+		var listFormulas = (function() {
+			var container = document.querySelector('#suportedList'),
+			ul = document.createElement('ul');
+
+			container.appendChild(ul);
+
+			var methods = rules.helper.SUPPORTED_FORMULAS.sort();
+
+			methods.forEach(function (item) {
+				var li = document.createElement('li'),
+					span = document.createElement('span');
+
+				span.innerHTML = item + ";";
+				li.appendChild(span);
+				ul.appendChild(li);
+			});
+
+		})();
+	})();
+</script>
+</body>
+</html>
